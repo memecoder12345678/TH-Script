@@ -1,0 +1,9 @@
+assign x = 5;
+assign y = 10;
+assign z = x + y;
+if z != 10 {
+    assign z = z + 1;
+} else {
+    assign z = z - 1;
+}
+return z;
