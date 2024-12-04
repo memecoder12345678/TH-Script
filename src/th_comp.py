@@ -641,6 +641,9 @@ if platform.machine().lower() != "amd64":
     print(f"{RED}ERROR: This program is intended to run on 64-bit Windows.{RESET}")
     sys.exit(1)
 if len(sys.argv) == 2 or len(sys.argv) == 3:
+    if sys.argv[1] == "--version":
+        print(f"{CYAN}TH-Script Compiler 1.0.0{RESET}")
+        sys.exit(0)
     path = os.path.dirname(sys.argv[1])
     filename = os.path.basename(sys.argv[1]).rsplit(".", 1)[0]
     try:
@@ -672,9 +675,6 @@ if len(sys.argv) == 3:
         assembly_code = generator.gen_prog()
         with open(os.path.join(output_dir, filename + ".asm"), "w", encoding="utf-8") as f:
             f.write(assembly_code)
-        sys.exit(0)
-    elif sys.argv[2] == "--version":
-        print(f"{CYAN}TH-Script Compiler 1.0.0{RESET}")
         sys.exit(0)
     elif sys.argv[2] == "--help":
         print(f"{GREEN}Help Menu:{RESET}")
