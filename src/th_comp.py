@@ -650,6 +650,9 @@ if len(sys.argv) == 2 or len(sys.argv) == 3:
         sys.exit(1)
     except IOError as e:
         print(f"{RED}ERROR: Unable to read file '{sys.argv[1]}': {e}{RESET}")
+else:
+    print(f"{CYAN}Usage: {sys.argv[0]} <source_file> [--asm|--help|--version].{RESET}")
+    sys.exit(0)
 
 output_dir = os.path.join(path, "output")
 os.makedirs(output_dir, exist_ok=True)
@@ -670,10 +673,14 @@ if len(sys.argv) == 3:
         with open(os.path.join(output_dir, filename + ".asm"), "w", encoding="utf-8") as f:
             f.write(assembly_code)
         sys.exit(0)
+    elif sys.argv[2] == "--version":
+        print(f"{CYAN}TH-Script Compiler 1.0.0{RESET}")
+        sys.exit(0)
     elif sys.argv[2] == "--help":
         print(f"{GREEN}Help Menu:{RESET}")
         print(f"  {GREEN}--asm{RESET}          Generates assembly code from the source")
-        print(f"  {GREEN}--help{RESET}         Displays this help menu and exits")
+        print(f"  {GREEN}--version{RESET}      Displays the version of the compiler")
+        print(f"  {GREEN}--help{RESET}         Displays this help menu and exits") 
     else:
         print(f"{RED}ERROR: Unknown argument: \"{sys.argv[2]}\"{RESET}\nUse --help for more information")
 
