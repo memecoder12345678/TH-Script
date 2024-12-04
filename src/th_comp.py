@@ -640,7 +640,7 @@ if platform.system() != "Windows":
 if platform.machine().lower() != "amd64":
     print(f"{RED}ERROR: This program is intended to run on 64-bit Windows.{RESET}")
     sys.exit(1)
-if len(sys.argv) == 2:
+if len(sys.argv) == 2 or len(sys.argv) == 3:
     path = os.path.dirname(sys.argv[1])
     filename = os.path.basename(sys.argv[1]).rsplit(".", 1)[0]
     try:
@@ -650,19 +650,6 @@ if len(sys.argv) == 2:
         sys.exit(1)
     except IOError as e:
         print(f"{RED}ERROR: Unable to read file '{sys.argv[1]}': {e}{RESET}")
-elif len(sys.argv) == 3:
-    path = os.path.dirname(sys.argv[1])
-    filename = os.path.basename(sys.argv[1]).rsplit(".", 1)[0]
-    try:
-        source_code = open(sys.argv[1], "r").read()
-    except FileNotFoundError:
-        print(f"{RED}ERROR: File '{sys.argv[1]}' not found.{RESET}")
-        sys.exit(1)
-    except IOError as e:
-        print(f"{RED}ERROR: Unable to read file '{sys.argv[1]}': {e}{RESET}")
-else:
-    print(f"{RED}ERROR: Please provide a source file as an argument.{RESET}")
-    sys.exit(2)
 
 output_dir = os.path.join(path, "output")
 os.makedirs(output_dir, exist_ok=True)
