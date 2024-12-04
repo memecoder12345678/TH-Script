@@ -72,14 +72,6 @@ class NodeBinExprDiv(NodeBinExpr):
     def __str__(self):
         return f"{GREEN}Div({self.lhs}, {self.rhs}){RESET}"
 
-class NodeBinExprAnd(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}And({self.lhs}, {self.rhs}){RESET}"
-
-class NodeBinExprOr(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Or({self.lhs}, {self.rhs}){RESET}"
-
 class NodeBinExprEq(NodeBinExpr):
     def __str__(self):
         return f"{GREEN}Eq({self.lhs}, {self.rhs}){RESET}"
@@ -189,8 +181,6 @@ class TokenType:
     OPEN_BRACE = "{"
     CLOSE_BRACE = "}"
     COMMA = ","
-    AND = "&&"
-    OR = "||"
     EQEQ = "=="
     NEQ = "!="
     LT = "<"
@@ -284,16 +274,6 @@ class Tokenizer:
                 }[char]), line_count))
                 self.consume()
 
-            elif char == "&" and self.peek(1) == "&":
-                tokens.append(Token(TokenType.AND, line_count))
-                self.consume()
-                self.consume()
-
-            elif char == "|" and self.peek(1) == "|":
-                tokens.append(Token(TokenType.OR, line_count))
-                self.consume()
-                self.consume()
-
             elif char == "=" and self.peek(1) == "=":
                 tokens.append(Token(TokenType.EQEQ, line_count))
                 self.consume()
@@ -369,7 +349,7 @@ class Parser:
         while True:
             token = self.peek()
             if token and token.type in {TokenType.PLUS, TokenType.MINUS, TokenType.STAR, TokenType.FSLASH, 
-                                        TokenType.AND, TokenType.OR, TokenType.EQEQ, TokenType.NEQ, 
+                                        TokenType.EQEQ, TokenType.NEQ, 
                                         TokenType.LT, TokenType.GT, TokenType.LTE, TokenType.GTE}:
                 op = self.consume().type
                 rhs = self.parse_term()
@@ -381,10 +361,6 @@ class Parser:
                     lhs = NodeBinExprMulti(lhs, rhs)
                 elif op == TokenType.FSLASH:
                     lhs = NodeBinExprDiv(lhs, rhs)
-                elif op == TokenType.AND:
-                    lhs = NodeBinExprAnd(lhs, rhs)
-                elif op == TokenType.OR:
-                    lhs = NodeBinExprOr(lhs, rhs)
                 elif op == TokenType.EQEQ:
                     lhs = NodeBinExprEq(lhs, rhs)
                 elif op == TokenType.NEQ:
@@ -545,10 +521,6 @@ class Generator:
         elif isinstance(bin_expr, NodeBinExprDiv):
             self.m_output.append("\txor rdx, rdx")
             self.m_output.append("\tidiv rbx")
-        elif isinstance(bin_expr, NodeBinExprAnd):
-            self.m_output.append("\tand rax, rbx")
-        elif isinstance(bin_expr, NodeBinExprOr):
-            self.m_output.append("\tor rax, rbx")
         elif isinstance(bin_expr, NodeBinExprEq):
             self.m_output.append("\tcmp rax, rbx")
             self.m_output.append("\tsete al")
@@ -580,7 +552,6 @@ class Generator:
             self.gen_term(expr)
         elif isinstance(expr, NodeBinExpr):
             self.gen_bin_expr(expr)
-
     def gen_stmt(self, stmt: NodeStmt):
         if isinstance(stmt, NodeStmtComment):
             self.m_output.append(f"\t; {stmt.content}")
@@ -659,7 +630,7 @@ class Generator:
             self.gen_stmt(stmt)
         if not have_return:
             self.m_output.append("\txor rcx, rcx")
-            self.m_output.append("\tcall ExitProcess")
+            self.m_output.append("\tcall ExitProcess\n")
         return "\n".join(self.m_output)
 
 # --- Main Program ---
