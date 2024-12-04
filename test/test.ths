@@ -2,7 +2,7 @@ assign x = 5;
 assign y = 10;
 assign z = x + y;
 
-if (z > 10) {
+if z > 10 {
     assign z = z + 1;
 } else {
     if z < 10 {
@@ -17,7 +17,7 @@ for assign i = 0; i < 10; assign i = i + 1; {
     assign z = z + (i * 2);
 }
 
-while (z > 0) {
+while z > 0 {
     assign z = z - 1;
 }
 
