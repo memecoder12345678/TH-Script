@@ -26,7 +26,7 @@
     | <Ident> 
     | "(" <Expr> ")"
 
-<IntLit> ::= [0-9]+   // A sequence of digits representing an integer literal
+<IntLit> ::= [0-9]+ -> A sequence of digits representing an integer literal
 
-<Ident> ::= [a-zA-Z_][a-zA-Z0-9_]*   // A valid identifier starting with a letter or underscore, followed by letters, digits, or underscores
+<Ident> ::= [a-zA-Z_][a-zA-Z0-9_]* -> A valid identifier starting with a letter or underscore, followed by letters, digits, or underscores
 ```
