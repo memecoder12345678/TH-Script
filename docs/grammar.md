@@ -11,7 +11,6 @@
 <Scope> ::= <Stmt>*
 
 <IfPred> ::= 
-    "elif" "(" <Expr> ")" <Scope> <IfPred> 
     | "else" <Scope> 
     | ε
 
