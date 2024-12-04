@@ -183,7 +183,6 @@ class TokenType:
     CLOSE_PAREN = ")"
     COMMENT = "comment"
     IF = "if"
-    ELIF = "elif"
     ELSE = "else"
     WHILE = "while"
     FOR = "for"
@@ -253,8 +252,6 @@ class Tokenizer:
                     tokens.append(Token(TokenType.ASSIGN, line_count))
                 elif buffer == "if":
                     tokens.append(Token(TokenType.IF, line_count))
-                elif buffer == "elif":
-                    tokens.append(Token(TokenType.ELIF, line_count))
                 elif buffer == "else":
                     tokens.append(Token(TokenType.ELSE, line_count))
                 elif buffer == "while":
@@ -461,12 +458,7 @@ class Parser:
             condition = self.parse_expr()
             true_block = self.parse_block()
             false_block = None
-            if self.peek() and self.peek().type == TokenType.ELIF:
-                self.consume()
-                elif_condition = self.parse_expr()
-                elif_block = self.parse_block()
-                false_block = [NodeStmtIf(elif_condition, elif_block)]
-            elif self.peek() and self.peek().type == TokenType.ELSE:
+            if self.peek() and self.peek().type == TokenType.ELSE:
                 self.consume()
                 false_block = self.parse_block()
             return NodeStmtIf(condition, true_block, false_block)
