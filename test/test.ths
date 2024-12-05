@@ -1,24 +1,27 @@
 assign x = 5;
 assign y = 10;
-assign z = x + y;
+assign z = 0;
 
-if z > 10 {
-    assign z = z + 1;
-} else {
-    if z < 10 {
-        assign z = z + 1;
+if x + y > 10 {
+    assign z = x * y;
+    if z > 50 {
+        assign z = z - 5;
     } else {
-        assign z = z + 10;
+        assign z = z + 5;
     }
-    assign z = z - 2;
+} else {
+    assign z = x + y;
 }
 
+assign sum = 0;
 for assign i = 0; i < 10; assign i = i + 1; {
-    assign z = z + (i * 2);
+    sum = sum + i;
 }
 
-while z > 0 {
-    assign z = z - 1;
+assign sum = sum + z;
+
+while sum > 0 {
+    assign sum = sum - 1;
 }
 
-return z; @ z = 0
+return sum;
