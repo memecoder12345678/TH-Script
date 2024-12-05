@@ -180,7 +180,6 @@ class TokenType:
     FOR = "for"
     OPEN_BRACE = "{"
     CLOSE_BRACE = "}"
-    COMMA = ","
     EQEQ = "=="
     NEQ = "!="
     LT = "<"
@@ -269,8 +268,7 @@ class Tokenizer:
                     "(": "OPEN_PAREN",
                     ")": "CLOSE_PAREN",
                     "{": "OPEN_BRACE",
-                    "}": "CLOSE_BRACE",
-                    ",": "COMMA"
+                    "}": "CLOSE_BRACE"
                 }[char]), line_count))
                 self.consume()
 
@@ -348,9 +346,10 @@ class Parser:
         lhs = self.parse_term()
         while True:
             token = self.peek()
-            if token and token.type in {TokenType.PLUS, TokenType.MINUS, TokenType.STAR, TokenType.FSLASH, 
-                                        TokenType.EQEQ, TokenType.NEQ, 
-                                        TokenType.LT, TokenType.GT, TokenType.LTE, TokenType.GTE}:
+            if token and token.type in {
+                TokenType.PLUS, TokenType.MINUS, TokenType.STAR, TokenType.FSLASH, TokenType.GTE,
+                TokenType.EQEQ, TokenType.NEQ, TokenType.LT, TokenType.GT, TokenType.LTE
+            }:
                 op = self.consume().type
                 rhs = self.parse_term()
                 if op == TokenType.PLUS:
