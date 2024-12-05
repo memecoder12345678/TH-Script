@@ -20,6 +20,7 @@
 
 ```bash
 python .\src\th_comp.py .\test\test.ths
+echo $LASTEXITCODE
 ```
 The provided syntax describes variable assignment, for loops, conditional statements, and return values within the THS programming language.
 
