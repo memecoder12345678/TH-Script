@@ -12,7 +12,7 @@
 
 - **Conditional Statements**: Uses if statements for comparisons (e.g., if x < 10).
 
-- The language's syntax is straightforward, using keywords like `assign`, `for`, `return`, `while`, and `if` for clarity. Program exit codes are accessible via system commands like `echo $LASTEXITCODE`. Basic arithmetic and comparisons are supported within the language's core functionality.
+- The syntax of this language is very simple, using keywords like `assign`, `for`, `return`, `while`, and `if` to clarify the programming structures. The `return` statement returns the value as an exit code. These exit codes can be accessed through system commands such as `echo $LASTEXITCODE` or `echo %errorlevel%`. Basic arithmetic and comparisons are supported within the core functionality of the language.
 
 - The code snippet calculates a value based on a loop and returns it.
 
@@ -20,7 +20,6 @@
 
 ```bash
 python .\src\th_comp.py .\test\test.ths
-echo $LASTEXITCODE
 ```
 The provided syntax describes variable assignment, for loops, conditional statements, and return values within the THS programming language.
 
