@@ -18,8 +18,7 @@ CYAN = "\033[96m"
 RESET = "\033[0m"
 
 class Node:
-    def __str__(self):
-        return f"{CYAN}{self.__class__.__name__}{RESET}"
+    pass
 
 class NodeTerm(Node):
     pass
@@ -33,23 +32,14 @@ class NodeExpr(Node):
 class NodeTermIntLit(NodeTerm):
     def __init__(self, value: int):
         self.value = value
-    
-    def __str__(self):
-        return f"{YELLOW}IntLit({self.value}){RESET}"
 
 class NodeTermIdent(NodeTerm):
     def __init__(self, value: str):
         self.value = value
-    
-    def __str__(self):
-        return f"{MAGENTA}Ident({self.value}){RESET}"
 
 class NodeTermParen(NodeTerm):
     def __init__(self, expr: NodeExpr):
         self.expr = expr
-    
-    def __str__(self):
-        return f"{BLUE}Paren({self.expr}){RESET}"
 
 class NodeBinExpr(NodeExpr):
     def __init__(self, lhs: NodeExpr, rhs: NodeExpr):
@@ -57,83 +47,64 @@ class NodeBinExpr(NodeExpr):
         self.rhs = rhs
 
 class NodeBinExprAdd(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Add({self.lhs}, {self.rhs}){RESET}"
+    pass
 
 class NodeBinExprSub(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Sub({self.lhs}, {self.rhs}){RESET}"
+    pass
 
 class NodeBinExprMulti(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Multi({self.lhs}, {self.rhs}){RESET}"
+    pass
 
 class NodeBinExprDiv(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Div({self.lhs}, {self.rhs}){RESET}"
+    pass
+
+class NodeBinExprAnd(NodeBinExpr):
+    pass
+
+class NodeBinExprOr(NodeBinExpr):
+    pass
 
 class NodeBinExprEq(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Eq({self.lhs}, {self.rhs}){RESET}"
+    pass
 
 class NodeBinExprNeq(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Neq({self.lhs}, {self.rhs}){RESET}"
+    pass
 
 class NodeBinExprLt(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Lt({self.lhs}, {self.rhs}){RESET}"
+    pass
 
 class NodeBinExprGt(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Gt({self.lhs}, {self.rhs}){RESET}"
+    pass
 
 class NodeBinExprLte(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Lte({self.lhs}, {self.rhs}){RESET}"
+    pass
 
 class NodeBinExprGte(NodeBinExpr):
-    def __str__(self):
-        return f"{GREEN}Gte({self.lhs}, {self.rhs}){RESET}"
+    pass
 
 class NodeStmtReturn(NodeStmt):
     def __init__(self, expr: NodeExpr):
         self.expr = expr
-    
-    def __str__(self):
-        return f"{RED}Return({self.expr}){RESET}"
 
 class NodeStmtAssign(NodeStmt):
     def __init__(self, ident: str, expr: NodeExpr):
         self.ident = ident
         self.expr = expr
-    
-    def __str__(self):
-        return f"{BLUE}Assign({self.ident}, {self.expr}){RESET}"
 
 class NodeStmtComment(NodeStmt):
     def __init__(self, content: str):
         self.content = content
-    
-    def __str__(self):
-        return f"{CYAN}Comment({self.content}){RESET}"
 
 class NodeStmtIf(NodeStmt):
     def __init__(self, condition: NodeExpr, true_block: List[NodeStmt], false_block: Optional[List[NodeStmt]] = None):
         self.condition = condition
         self.true_block = true_block
         self.false_block = false_block
-    
-    def __str__(self):
-        return f"{BLUE}If({self.condition}, {self.true_block}, {self.false_block}){RESET}"
 
 class NodeStmtWhile(NodeStmt):
     def __init__(self, condition: NodeExpr, block: List[NodeStmt]):
         self.condition = condition
         self.block = block
-    
-    def __str__(self):
-        return f"{BLUE}While({self.condition}, {self.block}){RESET}"
 
 class NodeStmtFor(NodeStmt):
     def __init__(self, init: NodeStmt, condition: NodeExpr, update: NodeStmt, block: List[NodeStmt]):
@@ -141,23 +112,14 @@ class NodeStmtFor(NodeStmt):
         self.condition = condition
         self.update = update
         self.block = block
-    
-    def __str__(self):
-        return f"{BLUE}For({self.init}, {self.condition}, {self.update}, {self.block}){RESET}"
 
 class NodeScope:
     def __init__(self, stmts: List[NodeStmt]):
         self.stmts = stmts
-    
-    def __str__(self):
-        return f"{MAGENTA}Scope({', '.join(str(stmt) for stmt in self.stmts)}){RESET}"
 
 class NodeProg:
     def __init__(self, stmts: List[NodeStmt]):
         self.stmts = stmts
-    
-    def __str__(self):
-        return f"{RED}Program({', '.join(str(stmt) for stmt in self.stmts)}){RESET}"
 
 # --- Token Definitions ---
 class TokenType:
